@@ -4,7 +4,7 @@
     Lucy
 </h1>
 
-Lucy is a simple command line interface built on top of the [Mercy](https://github.com/umikolabs/mercy) Rust crate. Lucy takes the entirety of Mercy and converts it into an easy to use CLI for quick security assessments and demonstrates the crate's abilities.
+Lucy is a simple command line interface built on top of the [Mercy](https://github.com/cybersuki/mercy) Rust crate. Lucy takes the entirety of Mercy and converts it into an easy to use CLI for quick security assessments and demonstrates the crate's abilities.
 
 ### Usage
 
