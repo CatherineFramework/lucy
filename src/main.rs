@@ -1,5 +1,5 @@
 /*
-    Owner: Hifumi1337 (https://github.com/hifumi1337)
+    Owner: Catherine Framework (https://github.com/CatherineFramework)
     Project: Lucy
     License: BSD 2-Clause
 */
