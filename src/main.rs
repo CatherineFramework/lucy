@@ -70,7 +70,7 @@ fn main() {
         println!("./lucy -m sys -p system_info -i all\n");
 
         println!("Decode an encoded string using base64");
-        println!("./lucy -m decode -p base64 -i dW1pa28gbGFicyBpcyB0aGUgYmVzdCB3YWlmdQ==\n");
+        println!("./lucy -m decode -p base64 -i bHVjeSA9IGJlc3Qgd2FpZnU=\n");
     } else {
         match args.method.as_str() {
 
