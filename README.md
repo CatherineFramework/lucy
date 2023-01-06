@@ -1,30 +1,30 @@
 <h1 align="center">
-    <img src="assets/lucy_logo.png" />
-    <br />
-    Lucy
+    <img src="https://raw.githubusercontent.com/CatherineFramework/mercy/main/assets/mercy_icon.png" width="40%" />
 </h1>
 
-Lucy is a simple command line interface built on top of the [Mercy](https://github.com/CatherineFramework/mercy) Rust crate. Lucy takes the entirety of Mercy and converts it into an easy to use CLI for quick security assessments and demonstrates the crate's abilities.
+Mercy CLI is a simple command line interface built on top of the [Mercy](https://github.com/CatherineFramework/mercy) Rust crate. Mercy CLI takes the entirety of Mercy and converts it into an easy-to-use CLI for quick security assessments and demonstrates the crate's functionality.
+
+The Mercy crate is freely available to everyone, you can learn more about it on [crates.io](https://crates.io/crates/mercy).
 
 ### Usage
 
-While Lucy is in an alpha state, the source will need to be built. You can easily build the source using the cargo package manager like so:
+You can go over to GitHub releases to download the latest verson of Mercy CLI. Or you can install the CLI via Cargo:
 
 ```bash
-cargo build
+cargo install mercy-cli
 ```
 
-Once the executable has been compiled, you can run the CLI tool using the following syntax:
+Once the executable has been downloaded, you can run the CLI tool using the following syntax:
 ```bash
-./lucy -m <METHOD> -p <PROTOCOL> -i <STRING/FILE>
+./mercy-cli -m <METHOD> -p <PROTOCOL> -i <STRING/FILE>
 ```
 
 You can also run the help command if you need a refresher on the available arguments:
 ```bash
-./lucy -h
+./mercy-cli -h
 ```
 
-We've collected the available commands and listed them below:
+The available options are listed below:
 ```
 -i, --input     Encoded/Plaintext string for decoding/encoding (ex: IaMStr1Ng) + location of the file for hex_dump
 
@@ -32,30 +32,39 @@ We've collected the available commands and listed them below:
 
 -p, --protocol  Chosen protocol for data manipulation (ex: base64)
 
--e, --extended  View every available option within the Lucy CLI
+-e, --extended  View every available option within the Mercy CLI
 ```
 
 ### Examples
 
-Here are some quick examples for the `decode`, `sys`, `hash`, and `ip` arguments:
+Here are some quick examples of use cases:
 
+If you need to decode a string using the base64 protocol.
 ```bash
-./lucy -m decode -p base64 -i <EncodedString>
+./mercy-cli -m decode -p base64 -i <EncodedString>
 ```
 
+Print host system information, such as hostname, cpu cores, etc.
 ```bash
-./lucy -m sys -p system_info -i all
+./mercy-cli -m sys -p system_info -i all
 ```
 
+Take a plaintext string and encode it using MD5.
 ```bash
-./lucy -m hash -p md5 -i <PlaintextString>
+./mercy-cli -m hash -p md5 -i <PlaintextString>
 ```
 
+Print the internal IP address of your host system.
 ```bash
-./lucy -m ip -p internal_ip
+./mercy-cli -m ip -p internal_ip
 ```
 
-If you're still stuck, you can use this option to learn every command at your disposal:
+Quickly check if a domain is malicious.
+```
+./mercy-cli -m mal -p status -i "azazelm3dj3d.com"
+```
+
+If you're stuck, you can use this option to learn every command at your disposal from [Mercy](https://github.com/CatherineFramework/mercy):
 ```bash
-./lucy -e
+./mercy-cli -e
 ```

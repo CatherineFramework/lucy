@@ -1,6 +1,11 @@
+//! # Mercy CLI
+//!
+//! Mercy is a public Rust crate created to assist with building cybersecurity frameworks and assessment tools. This CLI was built on top of the Mercy Rust crate to showcase it's functionality in an easy to ingest format.
+//! 
+
 /*
-    Owner: Catherine Framework (https://github.com/CatherineFramework)
-    Project: Lucy
+    Project: Mercy CLI (https://github.com/mercy-cli)
+    Author: azazelm3dj3d (https://github.com/azazelm3dj3d)
     License: BSD 2-Clause
 */
 
@@ -14,9 +19,9 @@ use prettytable::{
 };
 
 #[derive(Parser, Debug)]
-#[command(name = "Lucy")]
+#[command(name = "Mercy CLI")]
 #[command(version)] // Reads from Cargo.toml
-#[command(about = "Lucy is a simple command line interface built on top of the Mercy Rust crate", long_about = None)]
+#[command(about = "Mercy CLI is a simple command line interface built on top of the Mercy Rust crate.", long_about = None)]
 struct Args {
 
     /// Encoded/Plaintext string for decoding/encoding (ex: IaMStr1Ng) + location of the file for hex_dump
@@ -34,12 +39,13 @@ struct Args {
     #[clap(default_value = "")]
     protocol: String,
 
-    /// View every available option within the Lucy CLI
+    /// View every available option within the Mercy CLI
     #[arg(short, long)]
     extended: bool
 }
 
-fn pretty_output(input: &str, output: &str, left_col: &str, right_col: &str) {
+// Creates a pretty output for the CLI
+fn pretty_output(method: &str, protocol: &str, left_col: &str, right_col: &str) {
     let mut table = Table::new();
 
     table.add_row(Row::new(vec![
@@ -48,8 +54,8 @@ fn pretty_output(input: &str, output: &str, left_col: &str, right_col: &str) {
     ]));
 
     table.add_row(Row::new(vec![
-        Cell::new(input),
-        Cell::new(output)
+        Cell::new(method),
+        Cell::new(protocol)
     ]));
 
     table.printstd();
@@ -58,49 +64,38 @@ fn pretty_output(input: &str, output: &str, left_col: &str, right_col: &str) {
 fn main() {
     let args = Args::parse();
 
+    // Extended help section for new users
     if args.extended {
-        println!("\n=== Lucy ===");
-        pretty_output("encode\ndecode\nhash\nhex\nsys\nip", "base64, rot13\nbase64, rot13\nmd5, sha2_256\nhex_dump\nsystem_info\ninternal_ip", "Method(s)", "Protocol(s)");
+        println!("\n=== Mercy CLI ===");
+        pretty_output("encode\ndecode\nhash\nhex\nsys\nip\nmal\nd\nwho", "base64, rot13\nbase64, rot13\nmd5, sha2_256\nhex_dump\nsystem_info\ninternal_ip\nstatus\ndefang\nwhois", "Method(s)", "Protocol(s)");
 
-        println!("\n=== Lucy Extended ===");
+        println!("\n=== Mercy CLI Extended ===");
         pretty_output("system_info", "hostname\ncpu_cores\ncpu_speed\nos_release\nproc\nall", "Protocol(s)", "Input(s)");
 
+        // Example scenarios
         println!("\n=== Examples ===");
         println!("Print general information for the local system");
-        println!("./lucy -m sys -p system_info -i all\n");
+        println!("./mercy-cli -m sys -p system_info -i all\n");
 
         println!("Decode an encoded string using base64");
-        println!("./lucy -m decode -p base64 -i dW1pa28gbGFicyBpcyB0aGUgYmVzdCB3YWlmdQ==\n");
+        println!("./mercy-cli -m decode -p base64 -i bWVyY3kgaXMgcmVhbGx5IGNvb2w=\n");
+
+        println!("Check if a domain is malicious or not");
+        println!("./mercy-cli -m mal -p status -i 'azazelm3dj3d.com'\n");
     } else {
         match args.method.as_str() {
 
-            "decode" => {
-                println!("{}",mercy::mercy_decode(&args.protocol, &args.input));
-            },
-    
-            "encode" => {
-                println!("{}", mercy::mercy_encode(&args.protocol, &args.input));
-            },
-    
-            "hash" => {
-                println!("{}", mercy::mercy_hash(&args.protocol, &args.input));
-            },
-    
-            "hex" => {
-                println!("{}", mercy::mercy_hex(&args.protocol, &args.input));
-            },
-    
-            "sys" => {
-                println!("{}", mercy::mercy_extra(&args.protocol, &args.input));
-            },
-    
-            "ip" => {
-                println!("{}", mercy::mercy_extra(&args.protocol, &args.input));
-            },
-    
-            _ => {
-                println!("Unable to parse provided arguments");
-            }
+            // Available arguments from the Mercy crate
+            "decode" => println!("{}",mercy::mercy_decode(&args.protocol, &args.input)),
+            "encode" => println!("{}", mercy::mercy_encode(&args.protocol, &args.input)),
+            "hash"   => println!("{}", mercy::mercy_hash(&args.protocol, &args.input)),
+            "hex"    => println!("{}", mercy::mercy_hex(&args.protocol, &args.input)),
+            "sys"    => println!("{}", mercy::mercy_extra(&args.protocol, &args.input)),
+            "ip"     => println!("{}", mercy::mercy_extra(&args.protocol, &args.input)),
+            "d"      => println!("{}", mercy::mercy_extra(&args.protocol, &args.input)),
+            "who"    => println!("{}", mercy::mercy_extra(&args.protocol, &args.input)),
+            "mal"    => println!("{}", mercy::mercy_malicious(&args.protocol, &args.input)),
+            _        => println!("Unable to parse provided arguments")
         }
     }
 }
